@@ -25,6 +25,11 @@ export function CreateTestForm({
 
     const [pending, startTransition] = useTransition();
     const onSubmit = form.handleSubmit((data) => {
+        // Append .spec.ts to filename if not present
+        if (!data.filename.endsWith(".spec.ts")) {
+            data.filename += ".spec.ts";
+        }
+
         startTransition(async () => {
             const response = await createTestAction(data);
             if (response.success) {
@@ -63,7 +68,10 @@ export function CreateTestForm({
                         <FormItem>
                             <FormLabel>Dosya Adı</FormLabel>
                             <FormControl>
-                                <Input {...field} />
+                                <div className="flex items-center gap-2">
+                                    <Input {...field} />
+                                    <span className="text-sm text-muted-foreground">.spec.ts</span>
+                                </div>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
