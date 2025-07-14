@@ -10,7 +10,7 @@ import {
 } from "./ui/dropdown-menu";
 
 import { getTestsForProject } from "@/lib/test";
-import { codegenAction, deleteTestAction } from "@/actions/tests";
+import { codegenAction, deleteTestAction, execTestAction } from "@/actions/tests";
 
 export async function ProjectTestList({
     id,
@@ -37,7 +37,10 @@ export async function ProjectTestList({
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
-                                    <form>
+                                    <form action={async () => {
+                                        'use server'
+                                        await execTestAction(test.filename);
+                                    }}>
                                         <DropdownMenuItem asChild>
                                             <button type="submit" className="w-full text-left">
                                                 <Play />
