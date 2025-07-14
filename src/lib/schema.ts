@@ -6,6 +6,7 @@ export const CreateProjectSchema = z.object({
     description: z.string().optional(),
     workflowName: z.string().min(1, "Workflow adı zorunludur"),
     workflowFilename: z.string().min(1, "Workflow dosya adı zorunludur"),
+    workflowCron: z.string().min(1, "Workflow periyodu zorunludur"),
 });
 
 export const CreateTestSchema = z.object({

@@ -10,6 +10,43 @@ import { Result } from "@/lib/types";
 
 import { revalidatePath } from "next/cache";
 
+import * as fs from "fs/promises";
+import * as path from "path";
+import { projectFsName } from "@/lib/projects";
+
+function generateWorkflowYaml(name: string, cron: string) {
+    return `name: ${name}
+on:
+  schedule:
+    - cron: '${cron}'
+  workflow_dispatch:
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+        cache: 'pnpm'
+    - name: Install pnpm
+      run: npm install -g pnpm
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+    - name: Install Playwright Browsers
+      run: pnpm exec playwright install --with-deps
+    - name: Run Playwright tests
+      run: pnpm exec playwright test ${projectFsName(name)}
+    - uses: actions/upload-artifact@v4
+      if: \${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30`
+}
+
 
 export async function createProjectAction(data: z.infer<typeof CreateProjectSchema>): Promise<Result<Project, string>> {
     const parsed = CreateProjectSchema.safeParse(data);
@@ -21,6 +58,7 @@ export async function createProjectAction(data: z.infer<typeof CreateProjectSche
     }
 
     try {
+        // Insert the project into the database
         const project = await prisma.project.create({
             data: {
                 name: parsed.data.name,
@@ -34,6 +72,14 @@ export async function createProjectAction(data: z.infer<typeof CreateProjectSche
                 }
             }
         });
+
+        // Create the workflow file in the filesystem
+        const workflowContent = generateWorkflowYaml(project.name, parsed.data.workflowCron);
+        const workflowPath = path.join(".github", "workflows", projectFsName(project.name) + ".yml");
+
+        await fs.mkdir(path.dirname(workflowPath), { recursive: true });
+        await fs.writeFile(workflowPath, workflowContent);
+
         revalidatePath("/");
         revalidatePath(`/projects/${project.id}`);
         return {
@@ -49,7 +95,11 @@ export async function createProjectAction(data: z.infer<typeof CreateProjectSche
 }
 
 export async function deleteProjectAction(id: string) {
-    await prisma.project.delete({ where: { id } });
+    const project = await prisma.project.delete({ where: { id } });
+    const fsname = projectFsName(project.name);
+    await fs.rm(path.join(".github", "workflows", fsname + ".yml"));
+    await fs.rmdir(path.join("tests", fsname), { recursive: true });
+
     revalidatePath("/");
     revalidatePath(`/projects/${id}`);
 }
