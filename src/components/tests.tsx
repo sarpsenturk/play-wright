@@ -1,4 +1,4 @@
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, Play, Trash, Video } from "lucide-react";
 
 import { Button } from "./ui/button";
 import {
@@ -37,27 +37,37 @@ export async function ProjectTestList({
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
-                                    <DropdownMenuItem asChild>
-                                        <form action={async () => {
-                                            'use server'
-                                            await codegenAction(test.id);
-                                        }}>
+                                    <form>
+                                        <DropdownMenuItem asChild>
                                             <button type="submit" className="w-full text-left">
+                                                <Play />
+                                                Çalıştır
+                                            </button>
+                                        </DropdownMenuItem>
+                                    </form>
+                                    <form action={async () => {
+                                        'use server'
+                                        await codegenAction(test.id);
+                                    }}>
+                                        <DropdownMenuItem asChild>
+                                            <button type="submit" className="w-full text-left">
+                                                <Video />
                                                 Codegen
                                             </button>
-                                        </form>
-                                    </DropdownMenuItem>
+                                        </DropdownMenuItem>
+                                    </form>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuItem variant="destructive" asChild>
-                                        <form action={async () => {
-                                            'use server'
-                                            await deleteTestAction(name, test.id);
-                                        }}>
+                                    <form action={async () => {
+                                        'use server'
+                                        await deleteTestAction(name, test.id);
+                                    }}>
+                                        <DropdownMenuItem variant="destructive" asChild>
                                             <button type="submit" className="w-full text-left">
+                                                <Trash />
                                                 Sil
                                             </button>
-                                        </form>
-                                    </DropdownMenuItem>
+                                        </DropdownMenuItem>
+                                    </form>
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         </div>

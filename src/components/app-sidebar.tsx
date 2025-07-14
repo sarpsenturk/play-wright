@@ -42,16 +42,17 @@ async function ProjectsMenu() {
                             </SidebarMenuAction>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent side="right" align="start">
-                            <DropdownMenuItem variant="destructive" asChild>
-                                <form action={async () => {
-                                    'use server'
-                                    await deleteProjectAction(project.id);
-                                }}>
+                            <form action={async () => {
+                                'use server'
+                                await deleteProjectAction(project.id);
+                            }}>
+
+                                <DropdownMenuItem variant="destructive" asChild>
                                     <button type="submit" className="w-full text-left">
                                         Sil
                                     </button>
-                                </form>
-                            </DropdownMenuItem>
+                                </DropdownMenuItem>
+                            </form>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </SidebarMenuItem>
