@@ -37,6 +37,7 @@ model Workflow {
   filename  String
   name      String
   enabled   Boolean  @default(true)
+  cron      String   @default("0 18 * * *") // Default to run every day at 18:00
   projectId String   @unique
   project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
