@@ -1,10 +1,11 @@
+import { RunTestBtn } from "@/components/run-text-btn";
 import { CreateTestDialog } from "@/components/test-dialog";
 import { ProjectTestList } from "@/components/tests";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
-import { getProjectById } from "@/lib/projects";
+import { getProjectById, projectFsName } from "@/lib/projects";
 
 import { notFound } from "next/navigation";
 
@@ -37,9 +38,12 @@ export default async function ProjectPage({
                 <CardContent>
                     <div className="flex items-center justify-between">
                         <h2 className="text-xl font-semibold">Testler</h2>
-                        <CreateTestDialog projectId={id} />
+                        <div className="flex items-center space-x-0.5">
+                            <RunTestBtn testString={projectFsName(project.name)} />
+                            <CreateTestDialog projectId={id} />
+                        </div>
                     </div>
-                    <Separator className="mb-4" />
+                    <Separator className="mb-4 mt-2" />
 
                     <ProjectTestList projectId={id} />
                 </CardContent>

@@ -97,3 +97,7 @@ export async function codegenAction(testId: string) {
             }
         });
 }
+
+export async function execTestAction(testString: string) {
+    const result = exec(`pnpm exec playwright test --ui ${testString}`);
+}

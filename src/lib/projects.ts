@@ -11,6 +11,10 @@ export async function getProjectById(id: string): Promise<Project | null> {
     });
 }
 
+export function projectFsName(name: string): string {
+    return name.toLowerCase().split(" ").join("-");
+}
+
 export function projectTestDir(name: string): string {
-    return `tests/${name.split(" ").join("-").toLowerCase()}`;
+    return `tests/${projectFsName(name)}`;
 }
