@@ -55,7 +55,6 @@ export async function deleteTestAction(testId: string) {
         where: { id: testId },
     });
     revalidatePath(`/projects/${deletedTest.projectId}`);
-
 }
 
 export async function codegenAction(testId: string) {

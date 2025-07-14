@@ -52,7 +52,7 @@ export async function ProjectTestList({
                                             await deleteTestAction(test.id);
                                         }}>
                                             <button type="submit" className="w-full text-left">
-                                                Delete
+                                                Sil
                                             </button>
                                         </form>
                                     </DropdownMenuItem>

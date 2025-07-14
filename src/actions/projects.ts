@@ -35,3 +35,9 @@ export async function createProjectAction(data: z.infer<typeof CreateProjectSche
         };
     }
 }
+
+export async function deleteProjectAction(id: string) {
+    await prisma.project.delete({ where: { id } });
+    revalidatePath("/");
+    revalidatePath(`/projects/${id}`);
+}
