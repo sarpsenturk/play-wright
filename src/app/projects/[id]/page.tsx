@@ -1,5 +1,8 @@
+import { ProjectTestList } from "@/components/tests";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getProjectById } from "@/lib/projects";
+import { Plus } from "lucide-react";
 import { notFound } from "next/navigation";
 
 export default async function ProjectPage({
@@ -14,7 +17,7 @@ export default async function ProjectPage({
     }
 
     return (
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto space-y-4">
             <Card>
                 <CardContent>
                     <h1 className="text-2xl font-bold">{project.name}</h1>
@@ -24,6 +27,18 @@ export default async function ProjectPage({
                             {project.description}
                         </p>
                     )}
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardContent>
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-xl font-semibold">Testler</h2>
+                        <Button variant="ghost" size="icon">
+                            <Plus /> <span className="sr-only">Yeni test ekle</span>
+                        </Button>
+                    </div>
+                    <ProjectTestList projectId={id} />
                 </CardContent>
             </Card>
         </div>
