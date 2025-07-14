@@ -21,7 +21,19 @@ export async function createProjectAction(data: z.infer<typeof CreateProjectSche
     }
 
     try {
-        const project = await prisma.project.create({ data });
+        const project = await prisma.project.create({
+            data: {
+                name: parsed.data.name,
+                description: parsed.data.description,
+                url: parsed.data.url,
+                workflow: {
+                    create: {
+                        name: parsed.data.workflowName,
+                        filename: parsed.data.workflowFilename
+                    }
+                }
+            }
+        });
         revalidatePath("/");
         revalidatePath(`/projects/${project.id}`);
         return {
