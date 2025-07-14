@@ -19,7 +19,7 @@ export async function ProjectTestList({
 }) {
     const projects = await getTestsForProject(projectId);
     if (projects.length === 0) {
-        return <p className="text-muted-foreground">No tests found for this project.</p>;
+        return <p className="text-muted-foreground">Bu proje için test bulunamadı.</p>;
     } else {
         return (
             <ul className="space-y-2">
