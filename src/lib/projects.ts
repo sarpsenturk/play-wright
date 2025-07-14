@@ -17,3 +17,10 @@ export async function getProjects(): Promise<Project[]> {
         resolve(projects);
     });
 }
+
+export async function getProjectById(id: string): Promise<Project | null> {
+    return new Promise((resolve) => {
+        const project = projects.find((p) => p.id === id) || null;
+        resolve(project);
+    });
+}

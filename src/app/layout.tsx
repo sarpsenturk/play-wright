@@ -29,7 +29,7 @@ export default function RootLayout({
                 Toggle Sidebar
               </SidebarTrigger>
             </header>
-            <main className="grow p-4">
+            <main className="grow p-6 max-w-full">
               {children}
             </main>
           </div>
