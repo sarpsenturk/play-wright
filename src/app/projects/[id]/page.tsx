@@ -9,6 +9,7 @@ import { getProjectById, projectFsName } from "@/lib/projects";
 import { notFound } from "next/navigation";
 
 import clsx from "clsx";
+import { Button } from "@/components/ui/button";
 
 export default async function ProjectPage({
     params,
@@ -68,6 +69,12 @@ export default async function ProjectPage({
                             <p className="text-sm text-muted-foreground">{project.workflow?.filename}</p>
                         </span>
                     </div>
+                    <Button variant="link" className="mt-4 pl-0" asChild>
+                        {/* TODO: Add actual link to GitHub repository */}
+                        <a href="" target="_blank">
+                            Github'da Aç
+                        </a>
+                    </Button>
                 </CardContent>
             </Card>
 
