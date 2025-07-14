@@ -36,7 +36,7 @@ export default async function ProjectPage({
                 <CardContent>
                     <div className="flex items-center justify-between">
                         <h2 className="text-xl font-semibold">Testler</h2>
-                        <CreateTestDialog />
+                        <CreateTestDialog projectId={id} />
                     </div>
                     <ProjectTestList projectId={id} />
                 </CardContent>

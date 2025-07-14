@@ -5,3 +5,9 @@ export const CreateProjectSchema = z.object({
     url: z.url("Geçerli bir URL girin").min(1, "Proje URL'si zorunludur"),
     description: z.string().optional(),
 });
+
+export const CreateTestSchema = z.object({
+    name: z.string().min(1, "Test adı zorunludur"),
+    filename: z.string().min(1, "Dosya adı zorunludur"),
+    projectId: z.string().min(1, "Geçerli bir proje ID'si girin"),
+});

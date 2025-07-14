@@ -3,7 +3,11 @@ import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { CreateTestForm } from "./test-form";
 
-export function CreateTestDialog() {
+export function CreateTestDialog({
+    projectId,
+}: {
+    projectId: string;
+}) {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -19,7 +23,7 @@ export function CreateTestDialog() {
                     </DialogDescription>
                 </DialogHeader>
 
-                <CreateTestForm />
+                <CreateTestForm projectId={projectId} />
             </DialogContent>
         </Dialog>
     )
