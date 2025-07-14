@@ -2,8 +2,7 @@ import { RunTestBtn } from "@/components/run-text-btn";
 import { CreateTestDialog } from "@/components/test-dialog";
 import { ProjectTestList } from "@/components/tests";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { getProjectById, projectFsName } from "@/lib/projects";
 
@@ -37,8 +36,11 @@ export default async function ProjectPage({
     return (
         <div className="max-w-4xl mx-auto space-y-4">
             <Card>
+                <CardHeader>
+                    <CardTitle className="text-2xl font-bold">{project.name}</CardTitle>
+                    <CardDescription>{project.description || "Proje açıklaması yok."}</CardDescription>
+                </CardHeader>
                 <CardContent>
-                    <h1 className="text-2xl font-bold">{project.name}</h1>
                     <a href={project.url} target="_blank" className="text-sm text-muted-foreground hover:underline">{project.url}</a>
                 </CardContent>
             </Card>
@@ -70,16 +72,16 @@ export default async function ProjectPage({
             </Card>
 
             <Card>
-                <CardContent>
+                <CardHeader>
                     <div className="flex items-center justify-between">
-                        <h2 className="text-xl font-semibold">Testler</h2>
+                        <CardTitle className="text-xl font-semibold">Testler</CardTitle>
                         <div className="flex items-center space-x-0.5">
                             <RunTestBtn testString={projectFsName(project.name)} />
                             <CreateTestDialog projectId={id} />
                         </div>
                     </div>
-                    <Separator className="mb-4 mt-2" />
-
+                </CardHeader>
+                <CardContent>
                     <ProjectTestList id={project.id} name={project.name} />
                 </CardContent>
             </Card>
