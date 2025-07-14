@@ -13,17 +13,19 @@ import { getTestsForProject } from "@/lib/test";
 import { codegenAction, deleteTestAction } from "@/actions/tests";
 
 export async function ProjectTestList({
-    projectId,
+    id,
+    name,
 }: {
-    projectId: string;
+    id: string;
+    name: string;
 }) {
-    const projects = await getTestsForProject(projectId);
-    if (projects.length === 0) {
+    const tests = await getTestsForProject(id);
+    if (tests.length === 0) {
         return <p className="text-muted-foreground">Bu proje için test bulunamadı.</p>;
     } else {
         return (
             <ul className="space-y-2">
-                {projects.map((test) => (
+                {tests.map((test) => (
                     <li key={test.id} className="rounded-md">
                         <div className="flex items-center justify-between">
                             <h3 className="text-lg font-semibold">{test.name}</h3>
@@ -49,7 +51,7 @@ export async function ProjectTestList({
                                     <DropdownMenuItem variant="destructive" asChild>
                                         <form action={async () => {
                                             'use server'
-                                            await deleteTestAction(test.id);
+                                            await deleteTestAction(name, test.id);
                                         }}>
                                             <button type="submit" className="w-full text-left">
                                                 Sil

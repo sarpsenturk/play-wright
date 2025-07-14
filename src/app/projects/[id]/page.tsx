@@ -45,7 +45,7 @@ export default async function ProjectPage({
                     </div>
                     <Separator className="mb-4 mt-2" />
 
-                    <ProjectTestList projectId={id} />
+                    <ProjectTestList id={project.id} name={project.name} />
                 </CardContent>
             </Card>
         </div>
