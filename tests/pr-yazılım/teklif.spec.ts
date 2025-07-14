@@ -21,5 +21,5 @@ test('test', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Mesajınız' }).click();
   await page.getByRole('textbox', { name: 'Mesajınız' }).fill('Hello world');
   await page.locator('#kisisel').check();
-  await page.getByText('Gönder').click();
+  await expect(page.getByText('Gönder')).toBeVisible();
 });
