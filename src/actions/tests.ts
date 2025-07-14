@@ -41,3 +41,14 @@ export async function createTestAction(data: z.infer<typeof CreateTestSchema>): 
         };
     }
 }
+
+export async function deleteTestAction(testId: string) {
+    try {
+        const deletedTest = await prisma.test.delete({
+            where: { id: testId },
+        });
+        revalidatePath(`/projects/${deletedTest.projectId}`);
+    } catch (error) {
+        console.error("Failed to delete test:", error);
+    }
+}

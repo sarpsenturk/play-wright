@@ -10,6 +10,7 @@ import {
 } from "./ui/dropdown-menu";
 
 import { getTestsForProject } from "@/lib/test";
+import { deleteTestAction } from "@/actions/tests";
 
 export async function ProjectTestList({
     projectId,
@@ -43,7 +44,10 @@ export async function ProjectTestList({
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem variant="destructive" asChild>
-                                        <form>
+                                        <form action={async () => {
+                                            'use server'
+                                            const result = await deleteTestAction(test.id);
+                                        }}>
                                             <button type="submit" className="w-full text-left">
                                                 Delete
                                             </button>
