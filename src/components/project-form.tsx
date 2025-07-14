@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateProjectSchema } from "@/lib/schema";
 
+import { CronInput } from "./cron-input";
+
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
@@ -134,6 +136,20 @@ export function ProjectForm() {
                                     <Input {...field} placeholder="Workflow dosya adı" />
                                     <span className="text-gray-500">.yml</span>
                                 </div>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name="workflowCron"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Workflow Periyodu</FormLabel>
+                            <FormControl>
+                                <CronInput onChange={field.onChange} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
