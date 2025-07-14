@@ -24,7 +24,7 @@ export default async function ProjectPage({
             <Card>
                 <CardContent>
                     <h1 className="text-2xl font-bold">{project.name}</h1>
-                    <a href={project.url} className="text-sm text-muted-foreground hover:underline">{project.url}</a>
+                    <a href={project.url} target="_blank" className="text-sm text-muted-foreground hover:underline">{project.url}</a>
                     {project.description && (
                         <p className="mt-2 text-sm text-muted-foreground">
                             {project.description}
