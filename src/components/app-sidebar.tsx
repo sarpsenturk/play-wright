@@ -1,9 +1,10 @@
 import { FlaskConical } from "lucide-react";
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar";
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupAction, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar";
 import { getProjects } from "@/lib/projects";
 import Link from "next/link";
+import { ProjectDialog } from "./project-dialog";
 
-async function ProjecstMenu() {
+async function ProjectsMenu() {
     const projects = await getProjects();
     return (
         <SidebarMenu>
@@ -32,8 +33,11 @@ export function AppSidebar() {
             <SidebarContent>
                 <SidebarGroup>
                     <SidebarGroupLabel>Projeler</SidebarGroupLabel>
+                    <SidebarGroupAction>
+                        <ProjectDialog />
+                    </SidebarGroupAction>
                     <SidebarGroupContent>
-                        <ProjecstMenu />
+                        <ProjectsMenu />
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
