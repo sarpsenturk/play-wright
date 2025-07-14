@@ -10,3 +10,7 @@ export async function getProjectById(id: string): Promise<Project | null> {
         where: { id },
     });
 }
+
+export function projectTestDir(name: string): string {
+    return `tests/${name.split(" ").join("-").toLowerCase()}`;
+}

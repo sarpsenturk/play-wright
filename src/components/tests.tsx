@@ -10,7 +10,7 @@ import {
 } from "./ui/dropdown-menu";
 
 import { getTestsForProject } from "@/lib/test";
-import { deleteTestAction } from "@/actions/tests";
+import { codegenAction, deleteTestAction } from "@/actions/tests";
 
 export async function ProjectTestList({
     projectId,
@@ -36,7 +36,10 @@ export async function ProjectTestList({
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
                                     <DropdownMenuItem asChild>
-                                        <form>
+                                        <form action={async () => {
+                                            'use server'
+                                            await codegenAction(test.id);
+                                        }}>
                                             <button type="submit" className="w-full text-left">
                                                 Codegen
                                             </button>
@@ -46,7 +49,7 @@ export async function ProjectTestList({
                                     <DropdownMenuItem variant="destructive" asChild>
                                         <form action={async () => {
                                             'use server'
-                                            const result = await deleteTestAction(test.id);
+                                            await deleteTestAction(test.id);
                                         }}>
                                             <button type="submit" className="w-full text-left">
                                                 Delete
