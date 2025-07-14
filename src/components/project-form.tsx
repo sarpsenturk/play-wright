@@ -22,6 +22,9 @@ export function ProjectForm() {
             name: "",
             url: "",
             description: undefined,
+            workflowName: "",
+            workflowFilename: "",
+            workflowCron: "0 0 * * *", // Default to daily at midnight
         },
     });
 
