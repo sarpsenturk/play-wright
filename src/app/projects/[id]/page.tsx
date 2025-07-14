@@ -2,6 +2,7 @@ import { CreateTestDialog } from "@/components/test-dialog";
 import { ProjectTestList } from "@/components/tests";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 import { getProjectById } from "@/lib/projects";
 
@@ -38,6 +39,8 @@ export default async function ProjectPage({
                         <h2 className="text-xl font-semibold">Testler</h2>
                         <CreateTestDialog projectId={id} />
                     </div>
+                    <Separator className="mb-4" />
+
                     <ProjectTestList projectId={id} />
                 </CardContent>
             </Card>
