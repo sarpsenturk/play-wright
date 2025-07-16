@@ -13,9 +13,10 @@ import { revalidatePath } from "next/cache";
 import * as fs from "fs/promises";
 import * as path from "path";
 import { projectFsName } from "@/lib/projects";
+import { permanentRedirect } from "next/navigation";
 
 function generateWorkflowYaml(name: string, cron: string) {
-    return `name: ${name}
+  return `name: ${name}
 on:
   schedule:
     - cron: '${cron}'
@@ -49,57 +50,57 @@ jobs:
 
 
 export async function createProjectAction(data: z.infer<typeof CreateProjectSchema>): Promise<Result<Project, string>> {
-    const parsed = CreateProjectSchema.safeParse(data);
-    if (!parsed.success) {
-        return {
-            success: false,
-            error: "Invalid input data",
-        };
-    }
+  const parsed = CreateProjectSchema.safeParse(data);
+  if (!parsed.success) {
+    return {
+      success: false,
+      error: "Invalid input data",
+    };
+  }
 
-    try {
-        // Insert the project into the database
-        const project = await prisma.project.create({
-            data: {
-                name: parsed.data.name,
-                description: parsed.data.description,
-                url: parsed.data.url,
-                workflow: {
-                    create: {
-                        name: parsed.data.workflowName,
-                        filename: parsed.data.workflowFilename
-                    }
-                }
-            }
-        });
+  try {
+    // Insert the project into the database
+    const project = await prisma.project.create({
+      data: {
+        name: parsed.data.name,
+        description: parsed.data.description,
+        url: parsed.data.url,
+        workflow: {
+          create: {
+            name: parsed.data.workflowName,
+            filename: parsed.data.workflowFilename
+          }
+        }
+      }
+    });
 
-        // Create the workflow file in the filesystem
-        const workflowContent = generateWorkflowYaml(project.name, parsed.data.workflowCron);
-        const workflowPath = path.join(".github", "workflows", projectFsName(project.name) + ".yml");
+    // Create the workflow file in the filesystem
+    const workflowContent = generateWorkflowYaml(project.name, parsed.data.workflowCron);
+    const workflowPath = path.join(".github", "workflows", projectFsName(project.name) + ".yml");
 
-        await fs.mkdir(path.dirname(workflowPath), { recursive: true });
-        await fs.writeFile(workflowPath, workflowContent);
+    await fs.mkdir(path.dirname(workflowPath), { recursive: true });
+    await fs.writeFile(workflowPath, workflowContent);
 
-        revalidatePath("/");
-        revalidatePath(`/projects/${project.id}`);
-        return {
-            success: true,
-            data: project
-        };
-    } catch (error) {
-        return {
-            success: false,
-            error: "Failed to create project"
-        };
-    }
+    revalidatePath("/");
+    revalidatePath(`/projects/${project.id}`);
+    return {
+      success: true,
+      data: project
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: "Failed to create project"
+    };
+  }
 }
 
 export async function deleteProjectAction(id: string) {
-    const project = await prisma.project.delete({ where: { id } });
-    const fsname = projectFsName(project.name);
-    await fs.rm(path.join(".github", "workflows", fsname + ".yml"));
-    await fs.rmdir(path.join("tests", fsname), { recursive: true });
+  const project = await prisma.project.delete({ where: { id } });
+  const fsname = projectFsName(project.name);
+  await fs.rm(path.join(".github", "workflows", fsname + ".yml"));
+  await fs.rmdir(path.join("tests", fsname), { recursive: true });
 
-    revalidatePath("/");
-    revalidatePath(`/projects/${id}`);
+  revalidatePath("/");
+  permanentRedirect("/");
 }
