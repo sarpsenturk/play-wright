@@ -1,12 +1,15 @@
 import { Plus } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { ProjectForm } from "./project-form";
+import { Button } from "./ui/button";
 
 export function ProjectDialog() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Plus />
+                <Button variant="ghost" size="icon">
+                    <Plus />
+                </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

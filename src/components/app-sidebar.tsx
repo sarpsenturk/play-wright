@@ -72,10 +72,12 @@ export function AppSidebar() {
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Projeler</SidebarGroupLabel>
-                    <SidebarGroupAction>
-                        <ProjectDialog />
-                    </SidebarGroupAction>
+                    <div className="flex items-center justify-between">
+                        <SidebarGroupLabel>Projeler</SidebarGroupLabel>
+                        <SidebarGroupAction asChild>
+                            <ProjectDialog />
+                        </SidebarGroupAction>
+                    </div>
                     <SidebarGroupContent>
                         <ProjectsMenu />
                     </SidebarGroupContent>
