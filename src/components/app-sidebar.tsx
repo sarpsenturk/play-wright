@@ -67,7 +67,9 @@ export function AppSidebar() {
             <SidebarHeader>
                 <div className="flex items-center gap-2 px-4 py-2">
                     <FlaskConical className="h-6 w-6" />
-                    <span title="PR Test" className="text-lg font-semibold">PR Test</span>
+                    <Link href="/" className="text-lg font-semibold">
+                        PR Test
+                    </Link>
                 </div>
             </SidebarHeader>
             <SidebarContent>
