@@ -70,8 +70,7 @@ export default async function ProjectPage({
                         </span>
                     </div>
                     <Button variant="link" className="mt-4 pl-0" asChild>
-                        {/* TODO: Add actual link to GitHub repository */}
-                        <a href="" target="_blank">
+                        <a href={`https://github.com/sarpsenturk/pr-test/blob/main/.github/workflows/${project.workflow?.filename}`} target="_blank">
                             Github'da Aç
                         </a>
                     </Button>
