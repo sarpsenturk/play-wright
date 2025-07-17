@@ -82,7 +82,7 @@ export async function createProjectAction(data: z.infer<typeof CreateProjectSche
     await fs.writeFile(workflowPath, workflowContent);
 
     revalidatePath("/");
-    revalidatePath(`/projects/${project.id}`);
+    revalidatePath(`/${project.id}`);
     return {
       success: true,
       data: project

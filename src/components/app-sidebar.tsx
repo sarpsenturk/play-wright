@@ -30,7 +30,7 @@ async function ProjectsMenu() {
             {projects.map((project) => (
                 <SidebarMenuItem key={project.id}>
                     <SidebarMenuButton asChild>
-                        <Link href={`/projects/${project.id}`}>
+                        <Link href={`/${project.id}`}>
                             {project.name}
                         </Link>
                     </SidebarMenuButton>

@@ -36,7 +36,7 @@ export async function createTestAction(data: z.infer<typeof CreateTestSchema>): 
                 },
             },
         });
-        revalidatePath(`/projects/${projectId}`);
+        revalidatePath(`/${projectId}`);
         return {
             success: true,
             data: newTest,
@@ -54,7 +54,7 @@ export async function deleteTestAction(projectName: string, testId: string) {
     const deletedTest = await prisma.test.delete({ where: { id: testId } });
     const filepath = path.join(projectTestDir(projectName), deletedTest.filename);
     await fs.rm(filepath);
-    revalidatePath(`/projects/${deletedTest.projectId}`);
+    revalidatePath(`/${deletedTest.projectId}`);
 }
 
 export async function codegenAction(testId: string) {
