@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 
 import clsx from "clsx";
 import { Button } from "@/components/ui/button";
+import { ExternalLink, Globe, Settings, Clock, FileText, Play, CheckCircle, XCircle, Calendar } from "lucide-react";
 
 export default async function ProjectPage({
     params,
@@ -35,57 +36,114 @@ export default async function ProjectPage({
     }
 
     return (
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-5xl mx-auto space-y-6">
+            {/* Project Header */}
+            <div className="relative">
+                <Card className="border-l-4 border-l-primary">
+                    <CardHeader className="pb-4">
+                        <div className="flex items-start justify-between">
+                            <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                    <Globe className="size-6 text-primary" />
+                                    <CardTitle className="text-3xl font-bold">{project.name}</CardTitle>
+                                </div>
+                                <CardDescription className="text-base">
+                                    {project.description || "Bu proje için henüz bir açıklama eklenmemiş."}
+                                </CardDescription>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                {project.workflow?.enabled ? (
+                                    <div className="flex items-center gap-1 text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                                        <CheckCircle className="size-4" />
+                                        <span className="text-sm font-medium">Aktif</span>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center gap-1 text-red-600 bg-red-50 px-3 py-1 rounded-full">
+                                        <XCircle className="size-4" />
+                                        <span className="text-sm font-medium">Pasif</span>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </CardHeader>
+                    <CardContent>
+                        <Button variant="outline" size="sm" asChild>
+                            <a href={project.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                                <ExternalLink className="size-4" />
+                                Projeyi Ziyaret Et
+                            </a>
+                        </Button>
+                    </CardContent>
+                </Card>
+            </div>
+
+            {/* Workflow Details */}
             <Card>
                 <CardHeader>
-                    <CardTitle className="text-2xl font-bold">{project.name}</CardTitle>
-                    <CardDescription>{project.description || "Proje açıklaması yok."}</CardDescription>
+                    <div className="flex items-center gap-2">
+                        <Settings className="size-5 text-primary" />
+                        <CardTitle className="text-xl font-semibold">Workflow Yapılandırması</CardTitle>
+                    </div>
+                    <CardDescription>
+                        GitHub Actions ile otomatik test çalıştırma ayarları
+                    </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <a href={project.url} target="_blank" className="text-sm text-muted-foreground hover:underline">{project.url}</a>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                                <FileText className="size-4" />
+                                Workflow Adı
+                            </div>
+                            <p className="font-medium">{project.workflow?.name || "Tanımlanmamış"}</p>
+                        </div>
+
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                                <FileText className="size-4" />
+                                Workflow Dosyası
+                            </div>
+                            <p className="font-medium font-mono text-sm">{project.workflow?.filename || "Tanımlanmamış"}</p>
+                        </div>
+
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                                <Clock className="size-4" />
+                                Çalışma Zamanı
+                            </div>
+                            <p className="font-medium font-mono text-sm">{project.workflow?.cron || "Tanımlanmamış"}</p>
+                        </div>
+                    </div>
+
+                    {project.workflow?.filename && (
+                        <div className="mt-6 pt-4 border-t">
+                            <Button variant="outline" asChild>
+                                <a href={`https://github.com/sarpsenturk/pr-test/blob/main/.github/workflows/${project.workflow.filename}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                                    <ExternalLink className="size-4" />
+                                    GitHub'da Workflow'u Görüntüle
+                                </a>
+                            </Button>
+                        </div>
+                    )}
                 </CardContent>
             </Card>
 
+            {/* Tests Section */}
             <Card>
                 <CardHeader>
                     <div className="flex items-center justify-between">
-                        <CardTitle className="text-xl font-semibold">Workflow</CardTitle>
-                        <span className={clsx(
-                            "text-sm",
-                            project.workflow?.enabled ? "text-green-500" : "text-red-500"
-                        )}>
-                            {project.workflow?.enabled ? "Aktif" : "Aktif Değil"}
-                        </span>
-                    </div>
-                </CardHeader>
-                <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <span title="Workflow Name" className="flex items-center gap-2">
-                            Workflow Adı:
-                            <p className="text-sm text-muted-foreground">{project.workflow?.name}</p>
-                        </span>
-                        <span title="Workflow Filename" className="flex items-center gap-2">
-                            Workflow Dosyası:
-                            <p className="text-sm text-muted-foreground">{project.workflow?.filename}</p>
-                        </span>
-                    </div>
-                    <Button variant="link" className="mt-4 pl-0" asChild>
-                        <a href={`https://github.com/sarpsenturk/pr-test/blob/main/.github/workflows/${project.workflow?.filename}`} target="_blank">
-                            Github'da Aç
-                        </a>
-                    </Button>
-                </CardContent>
-            </Card>
-
-            <Card>
-                <CardHeader>
-                    <div className="flex items-center justify-between">
-                        <CardTitle className="text-xl font-semibold">Testler</CardTitle>
-                        <div className="flex items-center space-x-0.5">
+                        <div className="flex items-center gap-2">
+                            <Play className="size-5 text-primary" />
+                            <CardTitle className="text-xl font-semibold">Test Yönetimi</CardTitle>
+                        </div>
+                        <div className="flex items-center gap-2">
                             <RunTestBtn testString={projectFsName(project.name)} />
                             <CreateTestDialog projectId={id} />
                         </div>
                     </div>
+                    <CardDescription>
+                        Bu proje için tanımlanmış testleri görüntüleyin, düzenleyin ve çalıştırın
+                    </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <ProjectTestList id={project.id} name={project.name} />
