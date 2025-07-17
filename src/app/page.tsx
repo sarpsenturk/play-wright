@@ -1,7 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FlaskConical, Code, Play, ExternalLink, Zap, Shield, Globe } from "lucide-react";
-import Link from "next/link";
+import { FlaskConical, Code, Play, ExternalLink, Zap, Shield } from "lucide-react";
 
 export default function Home() {
   return (

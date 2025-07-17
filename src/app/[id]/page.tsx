@@ -8,7 +8,6 @@ import { getProjectById, projectFsName } from "@/lib/projects";
 
 import { notFound } from "next/navigation";
 
-import clsx from "clsx";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Globe, Settings, Clock, FileText, Play, CheckCircle, XCircle, Calendar } from "lucide-react";
 
