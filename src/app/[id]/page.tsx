@@ -9,7 +9,7 @@ import { getProjectById, projectFsName } from "@/lib/projects";
 import { notFound } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Globe, Settings, Clock, FileText, Play, CheckCircle, XCircle, Calendar } from "lucide-react";
+import { ExternalLink, Globe, Settings, Clock, FileText, Play, CheckCircle, XCircle } from "lucide-react";
 
 export default async function ProjectPage({
     params,
