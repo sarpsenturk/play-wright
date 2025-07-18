@@ -146,7 +146,7 @@ export default function Home() {
 
             <div className="bg-muted/50 p-3 rounded-lg">
               <code className="text-sm font-mono">
-                npx playwright codegen example.com
+                pnpm exec playwright codegen example.com
               </code>
             </div>
 
