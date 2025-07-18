@@ -75,6 +75,11 @@ export async function ProjectTestList({
                             </DropdownMenu>
                         </div>
                         <p className="text-sm text-muted-foreground">{test.filename}</p>
+                        {test.viewport && (
+                            <p className="text-xs text-muted-foreground">
+                                Viewport: {test.viewport}
+                            </p>
+                        )}
                     </li>
                 ))}
             </ul>

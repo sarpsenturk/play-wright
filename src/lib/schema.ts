@@ -13,4 +13,13 @@ export const CreateTestSchema = z.object({
     name: z.string().min(1, "Test adı zorunludur"),
     filename: z.string().min(1, "Dosya adı zorunludur"),
     projectId: z.string().min(1, "Geçerli bir proje ID'si girin"),
+    viewport: z.string().optional().refine(
+        (val) => {
+            if (!val) return true; // Optional field, so empty is valid
+            return /^\d+,\d+$/.test(val);
+        },
+        {
+            message: "Viewport boyutu '800,600' formatında olmalıdır"
+        }
+    )
 });

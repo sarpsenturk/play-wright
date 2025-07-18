@@ -25,12 +25,13 @@ export async function createTestAction(data: z.infer<typeof CreateTestSchema>): 
         };
     }
 
-    const { name, filename, projectId } = parsed.data;
+    const { name, filename, viewport, projectId } = parsed.data;
     try {
         const newTest = await prisma.test.create({
             data: {
                 name,
                 filename,
+                viewport,
                 project: {
                     connect: { id: projectId },
                 },
@@ -62,6 +63,7 @@ export async function codegenAction(testId: string) {
         where: { id: testId },
         select: {
             filename: true,
+            viewport: true,
             project: {
                 select: {
                     id: true,
@@ -83,7 +85,11 @@ export async function codegenAction(testId: string) {
     const filepath = path.join(dir, test.filename);
 
     // Execute playwrihght codegen command
-    exec(`pnpm exec playwright codegen --output ${filepath} ${test.project.url}`,
+    let command = `pnpm exec playwright codegen --output ${filepath} ${test.project.url}`;
+    if (test.viewport) {
+        command += ` --viewport-size="${test.viewport}"`;
+    }
+    exec(command,
         {},
         (error, stdout, stderr) => {
             if (stdout) {

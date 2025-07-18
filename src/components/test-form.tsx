@@ -6,8 +6,9 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateTestSchema } from "@/lib/schema";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { createTestAction } from "@/actions/tests";
+import { Switch } from "./ui/switch";
 
 export function CreateTestForm({
     projectId,
@@ -20,8 +21,12 @@ export function CreateTestForm({
             name: "",
             filename: "",
             projectId: projectId,
+            viewport: undefined,
         },
     });
+
+    // Emulation settings
+    const [emulateViewport, setEmulateViewport] = useState(false);
 
     const [pending, startTransition] = useTransition();
     const onSubmit = form.handleSubmit((data) => {
@@ -72,6 +77,36 @@ export function CreateTestForm({
                                     <Input {...field} />
                                     <span className="text-sm text-muted-foreground">.spec.ts</span>
                                 </div>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <div className="flex items-center gap-2">
+                    <Switch
+                        checked={emulateViewport}
+                        onCheckedChange={(checked) => {
+                            setEmulateViewport(checked);
+                            if (!checked) {
+                                form.setValue("viewport", undefined);
+                            } else {
+                                form.setValue("viewport", "800,600"); // Default emulated viewport size
+                            }
+                            console.log(form.getValues("viewport"));
+                        }}
+                    />
+                    <span className="text-sm" title="Viewport'u taklit et">Viewport'u taklit et</span>
+                </div>
+                <FormField
+                    control={form.control}
+                    name="viewport"
+                    disabled={!emulateViewport}
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Viewport Boyutu</FormLabel>
+                            <FormControl>
+                                <Input {...field} value={field.value} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
