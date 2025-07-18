@@ -145,7 +145,7 @@ export default async function ProjectPage({
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <ProjectTestList id={project.id} name={project.name} />
+                    <ProjectTestList id={id} name={project.name} />
                 </CardContent>
             </Card>
         </div>
