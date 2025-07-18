@@ -18,7 +18,7 @@ const DaysOfWeek = {
     Friday: "Cum",
     Saturday: "Cmt",
     Sunday: "Paz",
-};
+} as const;
 
 
 
