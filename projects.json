@@ -1,0 +1,24 @@
+{
+    "projects": [
+        {
+            "name": "PR Yazılım",
+            "url": "https://pryazilim.com",
+            "tests": [
+                {
+                    "name": "Anasayfa",
+                    "filename": "anasayfa.spec.ts"
+                },
+                {
+                    "name": "Teklif Al",
+                    "filename": "teklif-al.spec.ts"
+                }
+            ],
+            "workflow": {
+                "name": "pr-yazılım",
+                "url": "pr-yazılım.yml",
+                "enabled": true,
+                "cron": "0 18 * * *"
+            }
+        }
+    ]
+}
