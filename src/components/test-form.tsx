@@ -121,7 +121,7 @@ export function CreateTestForm({
                     </p>
                 )}
 
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full" disabled={pending}>
                     Test Oluştur
                 </Button>
             </form>
