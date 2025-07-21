@@ -1,25 +1,47 @@
 # PR Test
 
-A Next.js application for managing and running automated tests with Prisma database integration.
+Otomatik testleri/görevleri yönetmek ve çalıştırmak için bir Next.js uygulaması.
 
-## Getting Started
+## Başlangıç
 
-First, install the dependencies:
+Önce ortam dosyasını ayarlayın (.env.example dosyasını .env olarak yeniden adlandırın):
+
+```bash
+cp .env.example .env
+```
+
+Ardından, projeyi derleyin:
+
+```bash
+./scripts/build.sh
+```
+
+Son olarak, geliştirme sunucusunu çalıştırın:
+
+```bash
+./scripts/run.sh
+```
+
+Sonucu görmek için tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın.
+
+## Geliştiriciler İçin
+
+Alternatif olarak, doğrudan pnpm komutlarını kullanabilirsiniz:
+
+Bağımlılıkları yükleyin:
 
 ```bash
 pnpm install
 ```
 
-Then, generate the Prisma client:
+Prisma istemcisini oluşturun:
 
 ```bash
 pnpm exec prisma generate
 ```
 
-Finally, run the development server:
+Geliştirme sunucusunu çalıştırın:
 
 ```bash
 pnpm dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
