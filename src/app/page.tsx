@@ -37,7 +37,7 @@ export default function Home() {
               <CardTitle>GitHub Actions Entegrasyonu</CardTitle>
             </div>
             <CardDescription>
-              CI/CD pipeline'ınıza sorunsuz entegrasyon. Her proje için belirli aralıklarla cron zamanlama ile otomatik test çalıştırma.
+              CI/CD pipeline&apos;ınıza sorunsuz entegrasyon. Her proje için belirli aralıklarla cron zamanlama ile otomatik test çalıştırma.
             </CardDescription>
           </CardHeader>
         </Card>
@@ -73,14 +73,14 @@ export default function Home() {
               <div>
                 <h4 className="font-medium">Temel Kavramlar</h4>
                 <p className="text-sm text-muted-foreground">
-                  Playwright, Chrome, Firefox ve Safari'de çalışan hızlı, güvenilir end-to-end testler yazmanızı sağlar.
+                  Playwright, Chrome, Firefox ve Safari&apos;de çalışan hızlı, güvenilir end-to-end testler yazmanızı sağlar.
                 </p>
               </div>
 
               <div>
                 <h4 className="font-medium">Test Yazımı</h4>
                 <p className="text-sm text-muted-foreground">
-                  Basit API'lar ile sayfa navigasyonu, etkileşimler ve assertion'lar kolayca yazabilirsiniz.
+                  Basit API&apos;lar ile sayfa navigasyonu, etkileşimler ve assertion&apos;lar kolayca yazabilirsiniz.
                 </p>
               </div>
 
@@ -139,7 +139,7 @@ export default function Home() {
               <div>
                 <h4 className="font-medium">Selector İyileştirme</h4>
                 <p className="text-sm text-muted-foreground">
-                  Codegen, en güvenilir ve bakımı kolay selector'ları otomatik olarak seçer.
+                  Codegen, en güvenilir ve bakımı kolay selector&apos;ları otomatik olarak seçer.
                 </p>
               </div>
             </div>

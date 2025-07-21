@@ -42,7 +42,7 @@ export async function createTestAction(data: z.infer<typeof CreateTestSchema>): 
             success: true,
             data: newTest,
         };
-    } catch (error) {
+    } catch {
         // TODO: Handle Prisma errors
         return {
             success: false,
@@ -105,5 +105,5 @@ export async function codegenAction(testId: string) {
 }
 
 export async function execTestAction(testString: string) {
-    const result = exec(`pnpm exec playwright test --ui ${testString}`);
+    exec(`pnpm exec playwright test --ui ${testString}`);
 }

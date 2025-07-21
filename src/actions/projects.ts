@@ -89,7 +89,7 @@ export async function createProjectAction(data: z.infer<typeof CreateProjectSche
       success: true,
       data: project
     };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       error: "Failed to create project"

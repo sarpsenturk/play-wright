@@ -15,7 +15,7 @@ export function ProjectDialog() {
                 <DialogHeader>
                     <DialogTitle>Yeni Proje Ekle</DialogTitle>
                     <DialogDescription>
-                        Test etmek istediğiniz projenin adını ve URL'sini girin.
+                        Test etmek istediğiniz projenin adını ve URL&apos;sini girin.
                     </DialogDescription>
                 </DialogHeader>
 

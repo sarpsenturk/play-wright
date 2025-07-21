@@ -96,7 +96,7 @@ export function CreateTestForm({
                             console.log(form.getValues("viewport"));
                         }}
                     />
-                    <span className="text-sm" title="Viewport'u taklit et">Viewport'u taklit et</span>
+                    <span className="text-sm" title="Viewport'u taklit et">Viewport&apos;u taklit et</span>
                 </div>
                 <FormField
                     control={form.control}
