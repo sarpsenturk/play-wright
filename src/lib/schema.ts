@@ -21,5 +21,14 @@ export const CreateTestSchema = z.object({
         {
             message: "Viewport boyutu '800,600' formatında olmalıdır"
         }
+    ),
+    input: z.string().optional().refine(
+        (val) => {
+            if (!val) return true; // Optional field, so empty is valid
+            return val.endsWith(".json");
+        },
+        {
+            message: "Girdi dosyası .json uzantılı olmalıdır"
+        }
     )
 });
