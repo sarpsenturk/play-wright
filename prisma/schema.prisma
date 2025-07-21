@@ -28,6 +28,7 @@ model Test {
   filename  String
   projectId String
   viewport  String?
+  input     String?
   project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
