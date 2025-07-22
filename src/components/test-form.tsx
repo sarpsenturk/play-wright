@@ -113,6 +113,20 @@ export function CreateTestForm({
                     )}
                 />
 
+                <FormField
+                    control={form.control}
+                    name="input"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Input Dosyası</FormLabel>
+                            <FormControl>
+                                <Input {...field} placeholder="input.json" />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
                 <input type="hidden" name="projectId" value={projectId} />
 
                 {form.formState.errors.root && (
