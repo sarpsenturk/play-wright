@@ -25,13 +25,14 @@ export async function createTestAction(data: z.infer<typeof CreateTestSchema>): 
         };
     }
 
-    const { name, filename, viewport, projectId } = parsed.data;
+    const { name, filename, viewport, input, projectId } = parsed.data;
     try {
         const newTest = await prisma.test.create({
             data: {
                 name,
                 filename,
                 viewport,
+                input,
                 project: {
                     connect: { id: projectId },
                 },
