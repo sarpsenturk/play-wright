@@ -101,7 +101,7 @@ export async function deleteProjectAction(id: string) {
   const project = await prisma.project.delete({ where: { id } });
   const fsname = projectFsName(project.name);
   await fs.rm(path.join(".github", "workflows", fsname + ".yml"));
-  await fs.rmdir(path.join("tests", fsname), { recursive: true });
+  await fs.rm(path.join("tests", fsname), { recursive: true, force: true });
 
   revalidatePath("/");
   permanentRedirect("/");
