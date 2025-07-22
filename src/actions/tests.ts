@@ -44,7 +44,6 @@ export async function createTestAction(data: z.infer<typeof CreateTestSchema>): 
             data: newTest,
         };
     } catch {
-        // TODO: Handle Prisma errors
         return {
             success: false,
             error: "Failed to create test",
