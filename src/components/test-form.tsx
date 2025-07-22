@@ -1,7 +1,7 @@
 'use client'
 
 import { useForm } from "react-hook-form"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,7 +22,6 @@ export function CreateTestForm({
             filename: "",
             projectId: projectId,
             viewport: undefined,
-            input: undefined,
         },
     });
 
@@ -107,27 +106,8 @@ export function CreateTestForm({
                         <FormItem>
                             <FormLabel>Viewport Boyutu</FormLabel>
                             <FormControl>
-                                <Input {...field} value={field.value} placeholder="Viewport Boyutu" />
+                                <Input {...field} value={field.value} />
                             </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                <FormField
-                    control={form.control}
-                    name="input"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Girdi (Opsiyonel)</FormLabel>
-                            <FormControl>
-                                <Input {...field} placeholder="input.json" />
-                            </FormControl>
-                            <FormDescription>
-                                Test için opsiyonel input dosyası
-                                <br />
-                                <b>Bu dosya test koduyla aynı klasörde olmalıdır.</b>
-                            </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}

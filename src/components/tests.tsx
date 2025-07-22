@@ -80,12 +80,6 @@ export async function ProjectTestList({
                                 Viewport: {test.viewport}
                             </p>
                         )}
-
-                        {test.input && (
-                            <p className="text-xs text-muted-foreground">
-                                JSON: {test.input}
-                            </p>
-                        )}
                     </li>
                 ))}
             </ul>
