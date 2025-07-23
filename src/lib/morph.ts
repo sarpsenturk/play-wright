@@ -1,4 +1,21 @@
-import { Project, SyntaxKind } from "ts-morph"
+import { CallExpression, Node, Project, SyntaxKind, ts } from "ts-morph"
+
+function findInputs(testFunction: Node<ts.Node>): CallExpression<ts.CallExpression>[] {
+    return testFunction.getDescendantsOfKind(SyntaxKind.CallExpression)
+        .filter(call => call.getText().includes('fill'));
+}
+
+function getInputNames(inputs: CallExpression<ts.CallExpression>[]): string[] {
+    return inputs.map(input => {
+        const left = input.getExpression().asKind(SyntaxKind.PropertyAccessExpression)!;
+        const getByRole = left.getExpression().asKind(SyntaxKind.CallExpression)!;
+        const args = getByRole.getArguments();
+        const options = args[1].asKind(SyntaxKind.ObjectLiteralExpression)!;
+        const nameProperty = options.getProperty('name')!.asKind(SyntaxKind.PropertyAssignment)!;
+        const nameInitializer = nameProperty.getInitializer()!.asKind(SyntaxKind.StringLiteral)!;
+        return nameInitializer.getText().slice(1, -1); // Remove quotes
+    });
+}
 
 export function wrapTestWithParams(test_filename: string, input_filename: string) {
     const project = new Project({
@@ -43,6 +60,18 @@ export function wrapTestWithParams(test_filename: string, input_filename: string
 
     const testName = args[0];
     const testFunction = args[1];
+
+    // Find inputs
+    const inputs = findInputs(testFunction);
+
+    // Get the name of the input field
+    const inputNames = getInputNames(inputs);
+
+    inputNames.forEach((name) => {
+        const input = inputs.find(input => input.getText().includes(name))!;
+        input.removeArgument(0);
+        input.insertArgument(0, `item['${name}']`);
+    });
 
     // Create the wrapper code that uses the imported data
     const testNameText = testName.getText().slice(1, -1); // Remove quotes
