@@ -83,10 +83,8 @@ export async function ProjectTestList({
                         )}
                         {test.input && (
                             <div className="flex items-center gap-2">
-                                <p className="text-sm text-muted-foreground">
-                                    Input: {test.input}
-                                </p>
-                                <InputDialog testId={test.id} />
+                                <span className="text-sm text-muted-foreground">Input:</span>
+                                <InputDialog testId={test.id} input={test.input} />
                             </div>
                         )}
                     </li>
