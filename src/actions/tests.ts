@@ -15,6 +15,7 @@ import { notFound } from "next/navigation";
 import * as fs from "fs/promises";
 import * as path from "node:path";
 import { exec } from "node:child_process";
+import { wrapTestWithParams } from "@/lib/morph";
 
 export async function createTestAction(data: z.infer<typeof CreateTestSchema>): Promise<Result<Test, string>> {
     const parsed = CreateTestSchema.safeParse(data);
@@ -64,6 +65,7 @@ export async function codegenAction(testId: string) {
         select: {
             filename: true,
             viewport: true,
+            input: true,
             project: {
                 select: {
                     id: true,
@@ -101,7 +103,14 @@ export async function codegenAction(testId: string) {
             if (error) {
                 console.error(`Error during codegen: ${error.message}`);
             }
-        });
+        })
+        .on('exit', (code) => {
+            // Wrap the test with parameters if input is provided
+            if (code === 0 && test.input) {
+                wrapTestWithParams(filepath, test.input);
+            }
+        }
+        );
 }
 
 export async function execTestAction(testString: string) {
