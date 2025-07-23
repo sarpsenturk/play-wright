@@ -32,3 +32,8 @@ export const CreateTestSchema = z.object({
         }
     )
 });
+
+export const InputSchema = z.object({
+    testId: z.string().min(1, "Test ID'si zorunludur"),
+    file: z.file().mime(["application/json"]).nullable(),
+});

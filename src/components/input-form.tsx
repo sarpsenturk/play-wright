@@ -4,27 +4,54 @@ import { useForm } from "react-hook-form"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { InputSchema } from "@/lib/schema";
+import { useTransition } from "react";
+import { setInputFileAction } from "@/actions/tests";
 
-export function InputForm() {
+export function InputForm({
+    testId,
+}: {
+    testId: string;
+}) {
     const form = useForm({
+        resolver: zodResolver(InputSchema),
         defaultValues: {
-            input: null,
+            testId: testId,
+            file: null,
         },
+    });
+
+    const [pending, startTransition] = useTransition();
+    const onSubmit = form.handleSubmit((data) => {
+        console.log(data);
+        startTransition(async () => {
+            const response = await setInputFileAction(data);
+            if (response.success) {
+                form.reset();
+                alert("Input dosyası başarıyla yüklendi.");
+            } else {
+                form.setError("root", {
+                    type: "manual",
+                    message: response.error,
+                });
+            }
+        })
     });
 
     return (
         <Form {...form}>
-            <form className="space-y-4">
+            <form onSubmit={onSubmit} className="space-y-4">
                 <FormField
                     control={form.control}
-                    name="input"
+                    name="file"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Input Dosyası</FormLabel>
                             <FormControl>
                                 <Input
                                     type="file"
-                                    accept=".csv,.json,.txt"
+                                    accept=".json"
                                     onChange={(e) => {
                                         if (e.target.files && e.target.files.length > 0) {
                                             field.onChange(e.target.files[0]);
@@ -33,14 +60,22 @@ export function InputForm() {
                                 />
                             </FormControl>
                             <FormDescription>
-                                .csv, .json veya .txt
+                                .json
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
 
-                <Button type="submit" className="w-full">
+                <input type="hidden" name="testId" value={testId} />
+
+                {form.formState.errors.root && (
+                    <p className="text-red-500">
+                        {form.formState.errors.root.message}
+                    </p>
+                )}
+
+                <Button type="submit" className="w-full" disabled={pending}>
                     Seç
                 </Button>
             </form>
