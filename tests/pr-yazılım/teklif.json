@@ -1,0 +1,16 @@
+[
+    {
+        "Ad Soyad": "Sarp Şentürk",
+        "Firma Adı": "sarpsenturk",
+        "E-posta": "sarpsenturk38@gmail.com",
+        "Telefon Numarası": "534 523 47 66",
+        "Mesajınız": "Hello world"
+    },
+    {
+        "Ad Soyad": "John Doe",
+        "Firma Adı": "doecompany",
+        "E-posta": "john.doe@example.com",
+        "Telefon Numarası": "123 456 78 90",
+        "Mesajınız": "Hello world"
+    }
+]
