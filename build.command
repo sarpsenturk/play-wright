@@ -1,10 +1,11 @@
 #!/bin/bash
+cd "$(dirname "$0")"
 
 # Install dependencies
-pnpm install
+npm install
 
 # Generate Prisma client
-pnpm exec prisma generate
+npx prisma generate
 
 # Build the project
-pnpm build
+npm run build
