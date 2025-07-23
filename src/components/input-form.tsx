@@ -60,7 +60,7 @@ export function InputForm({
                                 />
                             </FormControl>
                             <FormDescription>
-                                .json
+                                Kabul edilen formatlar: .json
                             </FormDescription>
                             <FormMessage />
                         </FormItem>

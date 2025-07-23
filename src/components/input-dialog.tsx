@@ -5,15 +5,17 @@ import { InputForm } from "./input-form";
 
 export function InputDialog({
     testId,
+    input,
 }: {
     testId: string;
+    input: string;
 }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" size="sm">
+                    {input}
                     <FileInput />
-                    <span className="sr-only">Input Seç</span>
                 </Button>
             </DialogTrigger>
             <DialogContent>
