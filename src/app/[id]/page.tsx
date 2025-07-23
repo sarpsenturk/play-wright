@@ -117,7 +117,7 @@ export default async function ProjectPage({
                     {project.workflow?.filename && (
                         <div className="mt-6 pt-4 border-t">
                             <Button variant="outline" asChild>
-                                <a href={`https://github.com/sarpsenturk/pr-test/actions/workflows/${project.workflow.filename}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                                <a href={`${process.env.GITHUB_URL}/actions/workflows/${project.workflow.filename}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                                     <ExternalLink className="size-4" />
                                     GitHub&apos;da Workflow&apos;u Görüntüle
                                 </a>
