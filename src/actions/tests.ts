@@ -1,7 +1,7 @@
 'use server'
 
 import { z } from "zod";
-import { CreateTestSchema } from "@/lib/schema";
+import { CreateTestSchema, InputSchema } from "@/lib/schema";
 
 import { Result } from "@/lib/types";
 import { projectTestDir } from "@/lib/projects";
@@ -115,4 +115,37 @@ export async function codegenAction(testId: string) {
 
 export async function execTestAction(testString: string) {
     exec(`pnpm exec playwright test --ui ${testString}`);
+}
+
+export async function setInputFileAction(data: z.infer<typeof InputSchema>): Promise<Result<void, string>> {
+    const parsed = InputSchema.safeParse(data);
+    if (!parsed.success) {
+        return { success: false, error: "Invalid input data" };
+    }
+
+    const test = await prisma.test.update({
+        where: { id: parsed.data.testId },
+        data: { input: parsed.data.file!.name },
+        select: {
+            input: true,
+            project: {
+                select: { id: true, name: true }
+            },
+        },
+    });
+    if (!test) {
+        return { success: false, error: "Test not found" };
+    }
+
+    const dir = projectTestDir(test.project.name);
+    const filepath = path.join(dir, test.input!);
+
+    // Ensure the directory exists
+    await fs.mkdir(dir, { recursive: true });
+
+    // Write the input file to the test directory
+    await fs.writeFile(filepath, await parsed.data.file!.text());
+
+    revalidatePath(`/${test.project.id}`);
+    return { success: true, data: undefined };
 }

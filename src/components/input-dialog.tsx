@@ -3,7 +3,11 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Button } from "./ui/button";
 import { InputForm } from "./input-form";
 
-export function InputDialog() {
+export function InputDialog({
+    testId,
+}: {
+    testId: string;
+}) {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -20,7 +24,7 @@ export function InputDialog() {
                     </DialogDescription>
                 </DialogHeader>
 
-                <InputForm />
+                <InputForm testId={testId} />
             </DialogContent>
         </Dialog>
     )

@@ -86,7 +86,7 @@ export async function ProjectTestList({
                                 <p className="text-sm text-muted-foreground">
                                     Input: {test.input}
                                 </p>
-                                <InputDialog />
+                                <InputDialog testId={test.id} />
                             </div>
                         )}
                     </li>
