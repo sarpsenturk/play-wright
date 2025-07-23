@@ -11,6 +11,7 @@ import {
 
 import { getTestsForProject } from "@/lib/test";
 import { codegenAction, deleteTestAction, execTestAction } from "@/actions/tests";
+import { InputDialog } from "./input-dialog";
 
 export async function ProjectTestList({
     id,
@@ -81,9 +82,12 @@ export async function ProjectTestList({
                             </p>
                         )}
                         {test.input && (
-                            <p className="text-sm text-muted-foreground">
-                                Input: {test.input}
-                            </p>
+                            <div className="flex items-center gap-2">
+                                <p className="text-sm text-muted-foreground">
+                                    Input: {test.input}
+                                </p>
+                                <InputDialog />
+                            </div>
                         )}
                     </li>
                 ))}
