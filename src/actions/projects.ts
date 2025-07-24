@@ -70,7 +70,8 @@ export async function createProjectAction(data: z.infer<typeof CreateProjectSche
         workflow: {
           create: {
             name: parsed.data.workflowName,
-            filename: parsed.data.workflowFilename
+            filename: parsed.data.workflowFilename,
+            cron: parsed.data.workflowCron,
           }
         }
       }
