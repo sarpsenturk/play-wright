@@ -9,7 +9,7 @@ import { getProjectById, projectFsName } from "@/lib/projects";
 import { notFound } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Globe, Settings, Clock, FileText, Play, CheckCircle, XCircle, BarChart3 } from "lucide-react";
+import { ExternalLink, Globe, Settings, Clock, FileText, Play, CheckCircle, XCircle } from "lucide-react";
 
 export default async function ProjectPage({
     params,
@@ -116,18 +116,12 @@ export default async function ProjectPage({
 
                     {project.workflow?.filename && (
                         <div className="mt-6 pt-4 border-t">
-                            <div className="flex items-center gap-3">
-                                <Button variant="outline" asChild>
-                                    <a href={`${process.env.GITHUB_URL}/actions/workflows/${project.workflow.filename}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                                        <ExternalLink className="size-4" />
-                                        GitHub&apos;da Workflow&apos;u Görüntüle
-                                    </a>
-                                </Button>
-                                <Button variant="outline" className="flex items-center gap-2">
-                                    <BarChart3 className="size-4" />
-                                    Son Test Raporu
-                                </Button>
-                            </div>
+                            <Button variant="outline" asChild>
+                                <a href={`${process.env.GITHUB_URL}/actions/workflows/${project.workflow.filename}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                                    <ExternalLink className="size-4" />
+                                    GitHub&apos;da Workflow&apos;u Görüntüle
+                                </a>
+                            </Button>
                         </div>
                     )}
                 </CardContent>
