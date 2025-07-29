@@ -87,7 +87,7 @@ export async function codegenAction(testId: string) {
     const filepath = path.join(dir, test.filename);
 
     // Execute playwrihght codegen command
-    let command = `pnpm exec playwright codegen --output ${filepath} ${test.project.url}`;
+    let command = `npx playwright codegen --output ${filepath} ${test.project.url}`;
     if (test.viewport) {
         command += ` --viewport-size="${test.viewport}"`;
     }
@@ -114,7 +114,7 @@ export async function codegenAction(testId: string) {
 }
 
 export async function execTestAction(testString: string) {
-    exec(`pnpm exec playwright test --ui ${testString}`);
+    exec(`npx playwright test --ui ${testString}`);
 }
 
 export async function setInputFileAction(data: z.infer<typeof InputSchema>): Promise<Result<void, string>> {
