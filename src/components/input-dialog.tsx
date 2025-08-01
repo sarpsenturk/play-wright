@@ -8,13 +8,13 @@ export function InputDialog({
     input,
 }: {
     testId: string;
-    input: string;
+    input: string | null;
 }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <Button variant="ghost" size="sm">
-                    {input}
+                    {input || "Dosya Yükle"}
                     <FileInput />
                 </Button>
             </DialogTrigger>
