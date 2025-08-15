@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { deleteReport, getReports } from "@/actions/reports"
-import { Trash } from "lucide-react";
+import { ArrowRight, Trash } from "lucide-react";
 import Link from "next/link";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { revalidatePath } from "next/cache";
 
 export default async function ReportsPage() {
     const reports = await getReports();
@@ -12,39 +14,47 @@ export default async function ReportsPage() {
                 <h1 className="text-2xl font-bold">Raporlar</h1>
                 <Button>Rapor Yükle</Button>
             </div>
-            <div className="flex flex-col gap-3">
-                <p className="text-sm text-muted-foreground">
+            <Table>
+                <TableCaption>
                     Test raporları local olarak testler çalıştırıldığında oluşturulur.
-                    Bu raporlar <code className="font-mono">/reports</code> klasöründe saklanır.
-                </p>
-                <p className="text-sm text-muted-foreground">
+                    Bu raporlar <code className="font-mono">/public/reports</code> klasöründe saklanır.
+                    <br />
                     CI/CD'den veya dışarıdan alınan raporları buraya eklemek için
                     <span className="font-semibold"> Rapor Yükle</span> butonunu kullanabilirsiniz.
-                </p>
-            </div>
-            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {reports.map((report) => (
-                    <li key={report.path} className="flex flex-col gap-4 border rounded-md p-4">
-                        <div className="flex items-center justify-between">
-                            <span className="text-lg font-semibold">{report.path}</span>
-                            <form action={async () => {
-                                "use server"
-                                await deleteReport(report.path);
-                            }}>
-                                <Button type="submit" variant="ghost" size="icon" className="text-[var(--color-destructive)]">
-                                    <span className="sr-only">Sil</span>
-                                    <Trash />
-                                </Button>
-                            </form>
-                        </div>
-                        <Button variant="link" asChild>
-                            <Link href={`/reports/${encodeURIComponent(report.path)}`}>
-                                Raporu Görüntüle
-                            </Link>
-                        </Button>
-                    </li>
-                ))}
-            </ul>
+                </TableCaption>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Rapor Tarihi</TableHead>
+                        <TableHead></TableHead>
+                        <TableHead></TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {reports.map((report) => (
+                        <TableRow key={report.path}>
+                            <TableCell>{report.path}</TableCell>
+                            <TableCell className="flex justify-end">
+                                <Link href={`/reports/${report.path}`} className="flex items-center gap-2">
+                                    <ArrowRight />
+                                    Görüntüle
+                                </Link>
+                            </TableCell>
+                            <TableCell>
+                                <form action={async () => {
+                                    "use server"
+                                    await deleteReport(report.path);
+                                    revalidatePath("/reports");
+                                }}>
+                                    <button type="submit" className="flex items-center gap-2 w-full">
+                                        <Trash />
+                                        Sil
+                                    </button>
+                                </form>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
         </div>
     )
 }
