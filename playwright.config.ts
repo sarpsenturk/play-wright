@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 function reportDirname() {
-  return `reports/${new Date().toISOString().replace('T', '-').slice(0, 19)}`;
+  return `public/reports/${new Date().toISOString().replace('T', '-').slice(0, 19)}`;
 }
 
 /**

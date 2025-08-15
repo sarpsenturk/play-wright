@@ -4,9 +4,8 @@ import { Report } from "@/lib/types";
 
 import * as fs from "fs/promises";
 import * as path from "path";
-import { exec } from "node:child_process";
 
-const REPORT_DIR = "reports";
+const REPORT_DIR = "public/reports";
 
 export async function getReports(): Promise<Report[]> {
     const reports = await fs.readdir(REPORT_DIR);
