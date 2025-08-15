@@ -95,7 +95,7 @@ export async function codegenAction(testId: string) {
         {},
         (error, stdout, stderr) => {
             if (stdout) {
-                console.log(`Codegen output: ${stdout}`);
+                console.info(`Codegen output: ${stdout}`);
             }
             if (stderr) {
                 console.error(`Codegen error: ${stderr}`);

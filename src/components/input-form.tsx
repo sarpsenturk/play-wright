@@ -24,7 +24,6 @@ export function InputForm({
 
     const [pending, startTransition] = useTransition();
     const onSubmit = form.handleSubmit((data) => {
-        console.log(data);
         startTransition(async () => {
             const response = await setInputFileAction(data);
             if (response.success) {

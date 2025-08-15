@@ -93,7 +93,6 @@ export function CreateTestForm({
                             } else {
                                 form.setValue("viewport", "800,600"); // Default emulated viewport size
                             }
-                            console.log(form.getValues("viewport"));
                         }}
                     />
                     <span className="text-sm" title="Viewport'u taklit et">Viewport&apos;u taklit et</span>

@@ -27,7 +27,7 @@ export function wrapTestWithParams(test_filename: string, input_filename: string
     const existingImports = sourceFile.getImportDeclarations()
         .filter(importDecl => importDecl.getModuleSpecifierValue() === `./${input_filename}`);
     if (existingImports.length > 0) {
-        console.log('File already parameterized, skipping');
+        console.error('File already parameterized, skipping');
         return;
     }
 
@@ -46,7 +46,7 @@ export function wrapTestWithParams(test_filename: string, input_filename: string
         });
 
     if (testCalls.length === 0) {
-        console.log('No test calls found in the file');
+        console.error('No test calls found in the file');
         return;
     }
 
@@ -54,7 +54,7 @@ export function wrapTestWithParams(test_filename: string, input_filename: string
     const testCall = testCalls[0];
     const args = testCall.getArguments();
     if (args.length < 2) {
-        console.log('Test call must have at least 2 arguments (name and function)');
+        console.error('Test call must have at least 2 arguments (name and function)');
         return;
     }
 
