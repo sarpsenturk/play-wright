@@ -9,3 +9,7 @@ export type Failure<T> = {
 };
 
 export type Result<T, E> = Success<T> | Failure<E>;
+
+export type Report = {
+    path: string;
+};

@@ -47,6 +47,7 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+/reports
 
 # prisma
 /src/generated/prisma
