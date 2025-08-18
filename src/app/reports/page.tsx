@@ -30,7 +30,7 @@ export default async function ReportsPage() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {reports.map((report) => (
+                    {reports.toReversed().map((report) => (
                         <TableRow key={report.path}>
                             <TableCell>{report.path}</TableCell>
                             <TableCell className="flex justify-end">
