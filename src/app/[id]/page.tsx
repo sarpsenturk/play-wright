@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Globe, Settings, Clock, FileText, Play, CheckCircle, XCircle } from "lucide-react";
+import { CronInput } from "@/components/cron-input";
 
 export default async function ProjectPage({
     params,
@@ -110,7 +111,9 @@ export default async function ProjectPage({
                                 <Clock className="size-4" />
                                 Çalışma Zamanı
                             </div>
-                            <p className="font-medium font-mono text-sm">{project.workflow?.cron || "Tanımlanmamış"}</p>
+                            {project.workflow?.cron
+                                ? <CronInput defaultValue={project.workflow.cron} />
+                                : "Tanımlanmamış"}
                         </div>
                     </div>
 
